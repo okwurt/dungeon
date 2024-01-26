@@ -1,9 +1,12 @@
 {
   "name": "dungeon2",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "homepage": "https://dengar66.github.io/dungeon/",
   "scripts": {
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -36,6 +39,7 @@
     "@vue/test-utils": "^2.4.3",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
+    "gh-pages": "^6.1.1",
     "jsdom": "^23.0.1",
     "prettier": "^3.0.3",
     "vite": "^5.0.10",
