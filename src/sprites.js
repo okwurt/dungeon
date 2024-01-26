@@ -15,7 +15,7 @@ export default {
         }
 
         // We need to fetch PNG from PDB if Crown Tundra or Gen 9 mon or any Home sprite only mons
-        if (generation == '8-CT' || generation == '9' || homeSpriteOnlyPKMN.includes(pkmnName)) {
+        if (generation == '8-CT' || generation == 'PLA' || generation == '9' || homeSpriteOnlyPKMN.includes(pkmnName)) {
             return this.fetchHomeSprite(pkmnName, isShiny)
         }
         // Separate URL string for Gen 8 mons in PP

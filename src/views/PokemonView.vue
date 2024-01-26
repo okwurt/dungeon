@@ -182,7 +182,7 @@ export default {
       return this.rows[1]
     },
     pkmnName() {
-      return Utilities.sanitizeName(this.row.get('name'))
+      return Utilities.sanitizeNameHomeOnly(this.row.get('name'))
     },
     shinyImg() {
       const isShiny = this.row.get('isShiny')
@@ -197,7 +197,7 @@ export default {
       return this.shinyImg != ''
     },
     spriteImg() {
-      return Sprites.fetchSprite(this.pkmnName, this.isShiny, this.row.get('generation'))
+      return Sprites.fetchHomeSprite(this.pkmnName, this.isShiny)
     },
     ballName() {
       const ball = this.row.get('ball')

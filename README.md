@@ -55,10 +55,12 @@ npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Deloy to Production (with Minify)
+
+This requires some setup, change the homepage in package.json to reflect your full URL and in vite.config.js set the base to be your repo name
 
 ```sh
-npm run build
+npm run deploy
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
