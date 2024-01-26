@@ -1,0 +1,53 @@
+---
+# Default Configuration
+
+title: 'events app'
+subtitle: "User's Pokemon Collection"
+
+homeFC: "1234 1234 1234"
+switchFC: "SW-1234-1234-1234"
+
+games:
+  - gen: '9'
+    game: 'Scarlet'
+    ign: 'Ash'
+    tid: '123456'
+
+colors:
+  default: #default theme is dark
+    background: '#121212'
+    navbar-background: '#80D8FF'
+    navbar-hover: '#40C4FF'
+    highlight-header: '#01579B'
+    highlight-primary: '#4FC3F7'
+    highlight-secondary: '#039BE5'
+    text: '#EAEAEA'
+    text-header: '#FFFFFF'
+    text-navbar: '#121212'
+    text-table: '#121212'
+    text-title: '#FAFAFA'
+    link: '#5E655E'
+    link-hover: '#3273DC'
+  light:
+    background: '#ECEFF1'
+    navbar-background: '#607D8B'
+    navbar-hover: '#B0BEC5'
+    highlight-header: '#37474F'
+    highlight-primary: '#546E7A'
+    highlight-secondary: '#90A4AE'
+    text: '#263238'
+    text-header: '#FFFFFF'
+    text-navbar: '#121212'
+    text-table: '#121212'
+    text-title: '#263238'
+    link: '#5E655E'
+    link-hover: '#3273DC'
+
+
+# This should be the column in your Sheet that has link to Event Page (if applicable, set to empty string to disable)
+eventURLColumn: "B"
+# These should be the columns in your Sheet that have links to Trade History (if applicable, set to empty string to disable)
+tradeURLColumn1: "AH"
+tradeURLColumn2: "AI"
+tradeURLColumn3: "AJ"
+tradeURLColumn4: "AK"
