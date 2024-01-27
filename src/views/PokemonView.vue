@@ -27,7 +27,9 @@
       </div>
       <div class="eventContainer">
         <h3 class="eventData">Event (Bulbapedia Link): &nbsp;</h3>
-        <a class="eventData" :href="eventCell.hyperlink">{{ this.row.get('event') + ' ' + this.trimmedName() }}</a>
+        <a class="eventData" :href="eventCell.hyperlink">{{
+          this.row.get('event') + ' ' + this.trimmedName()
+        }}</a>
       </div>
       <!-- IV Info -->
       <div class="hpContainer">
@@ -56,9 +58,9 @@
         <h2>{{ this.trimmedName() }}</h2>
       </div>
       <div class="typeContainer">
-          <div class="typeIterator" :key="type.slot" v-for="type in pokemonData?.types" >
-            <img class="typeImg" :src="fetchTypeImg(type.type.name)"/>
-          </div>
+        <div class="typeIterator" :key="type.slot" v-for="type in pokemonData?.types">
+          <img class="typeImg" :src="fetchTypeImg(type.type.name)" />
+        </div>
       </div>
       <div class="spriteContainer" v-if="spriteImg != ''">
         <div class="spriteImg" v-bind:style="{ backgroundImage: 'url(' + spriteImg + ')' }"></div>
@@ -115,7 +117,7 @@
       </div>
       <div class="notesContainer">
         <h3>Disclosure / Notes:</h3>
-        <h5>{{ this.row.get('disclosure') }}</h5>        
+        <h5>{{ this.row.get('disclosure') }}</h5>
       </div>
       <div class="boxContainer">
         <h6>Box Location: {{ this.row.get('box') }}</h6>
@@ -142,7 +144,6 @@ export default {
   data() {
     return {
       loaded: false,
-      pokeLoaded : false,
       spreadsheet: null,
       rows: [],
       rowNumber: 0,
@@ -154,6 +155,12 @@ export default {
       pokemonData: null
     }
   },
+  beforeMount() {
+    window.addEventListener('keydown', this.handleKeydown, null)
+  },
+  beforeUnmount() {
+    window.removeEventListener('keydown', this.handleKeydown)
+  },
   created: async function () {
     await this.loadSheet()
     this.setCells()
@@ -164,7 +171,6 @@ export default {
       () => this.$route.params,
       async (toParams, previousParams) => {
         this.loaded = false
-        this.pokeLoaded = false
         this.rows = null
         this.pokemonData = null
         await this.loadSheet()
@@ -301,24 +307,33 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-      this.pokeLoaded = true
     },
-    fetchTypeImg: function(type) {
+    fetchTypeImg: function (type) {
       return Images.typeImg(type)
     },
-    trimmedName: function() {
+    trimmedName: function () {
       const apiName = this.pokemonData?.name
       if (apiName == null) {
         return this.rawName
-      } else if (this.row.get('generation') == '9' && this.rawName.includes(" ")) {
+      } else if (this.row.get('generation') == '9' && this.rawName.includes(' ')) {
         // These are the Paradox Mons
         return this.rawName
-      } else if (!this.rawName.includes("-") && apiName.includes("-")) {
+      } else if (!this.rawName.includes('-') && apiName.includes('-')) {
         // Base forms from sheet that have a default form name in API
         return this.rawName
       }
       const firstLetter = apiName.charAt(0)
       return firstLetter.toUpperCase() + apiName.slice(1)
+    },
+    handleKeydown: function (event) {
+      switch (event.keyCode) {
+        case 37:
+          this.routeToInfoView(parseInt(this.rowNumber) - 1)
+          break
+        case 39:
+          this.routeToInfoView(parseInt(this.rowNumber) + 1)
+          break
+      }
     }
   }
 }
