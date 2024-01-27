@@ -11,7 +11,7 @@
       </div>
       <img class="ballContainer" :src="ballImg" />
       <div class="headNameContainer">
-        <h1>{{ this.row.get('name') }}</h1>
+        <h1>{{ this.rawName }}</h1>
       </div>
       <div class="levelContainer">
         <h1>Lv. {{ this.row.get('level') }}</h1>
@@ -181,8 +181,11 @@ export default {
     row() {
       return this.rows[1]
     },
+    rawName() {
+      return this.row.get('name')
+    },
     pkmnName() {
-      return Utilities.sanitizeNameHomeOnly(this.row.get('name'))
+      return Utilities.sanitizeNameHomeOnly(this.rawName)
     },
     shinyImg() {
       const isShiny = this.row.get('isShiny')
@@ -210,7 +213,7 @@ export default {
       return Sprites.fetchBallIMG(this.ballName, this.pkmnName)
     },
     isGigantamax() {
-      return this.row.get('name').toLowerCase().includes('gigantamax')
+      return this.rawName?.toLowerCase().includes('gigantamax')
     },
     gigantamaxImg() {
       return this.isGigantamax ? Images.gigantamaxImg() : ''
@@ -305,12 +308,14 @@ export default {
     },
     trimmedName: function() {
       const apiName = this.pokemonData?.name
-      const rawName = this.row.get('name')
       if (apiName == null) {
-        return apiName
-      } else if (this.row.get('generation') == '9' && rawName.includes(" ")) {
+        return this.rawName
+      } else if (this.row.get('generation') == '9' && this.rawName.includes(" ")) {
         // These are the Paradox Mons
-        return rawName
+        return this.rawName
+      } else if (!this.rawName.includes("-") && apiName.includes("-")) {
+        // Base forms from sheet that have a default form name in API
+        return this.rawName
       }
       const firstLetter = apiName.charAt(0)
       return firstLetter.toUpperCase() + apiName.slice(1)
