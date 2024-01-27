@@ -1,0 +1,253 @@
+@charset "utf-8";
+
+@import '../../node_modules/bulma/bulma';
+
+body {
+  #main-section {
+    #home-view {
+      @media screen and (max-width: 659px) {
+        img {
+          width: 125px;
+          border: 2px solid var(--navbar-background);
+        }
+      }
+    }
+    #detail-view {
+      // Small Size Elements - 320px Image
+      @media screen and (max-width: 659px) {
+        .pokemonView {
+          background-size: 320px;
+          width: 320px;
+          height: 157px;
+        }
+
+        h1 {
+          font-size: 8px;
+        }
+
+        h2 {
+          font-size: 6px;
+          font-weight: 400;
+        }
+
+        h3 {
+          font-size: 5px;
+          font-weight: bold;
+        }
+
+        h4 {
+          font-size: 7px;
+          text-shadow:
+            0 0 2px #fff,
+            0 0 2px #fff;
+        }
+
+        h5 {
+          font-size: 4px;
+        }
+
+        h6 {
+          font-size: 3px;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 2px;
+        }
+
+        .eventData {
+          font-size: 5px;
+          font-weight: bold;
+        }
+
+        .tradeHistoryData {
+          font-size: 4px;
+        }
+
+        .prevContainer {
+          left: 15px;
+          top: 2px;
+          width: 33px;
+          height: 13px;
+
+          img {
+            width: 12px;
+            height: 12px;
+          }
+        }
+
+        .ballContainer {
+          left: 60px;
+          top: 2px;
+          width: 12px;
+          height: 12px;
+        }
+
+        .headNameContainer {
+          left: 73px;
+          top: 2px;
+          width: 105px;
+          height: 12px;
+        }
+
+        .levelContainer {
+          left: 183px;
+          top: 2px;
+          width: 25px;
+          height: 12px;
+        }
+
+        .isGigContainer {
+          right: 73px;
+          top: 3px;
+          width: 10px;
+          height: 10px;
+        }
+
+        .isShinyContainer {
+          right: 60px;
+          top: 3px;
+          width: 10px;
+          height: 10px;
+        }
+
+        .nextContainer {
+          right: 15px;
+          top: 2px;
+          width: 33px;
+          height: 13px;
+
+          img {
+            right: 0px;
+            width: 12px;
+            height: 12px;
+          }
+        }
+
+        .eventContainer {
+          left: 70px;
+          top: 17px;
+          width: 200px;
+          height: 10px;
+        }
+
+        .hpContainer {
+          left: 61px;
+          top: 31px;
+          width: 8px;
+        }
+        .sAContainer {
+          left: 20px;
+          top: 53px;
+          width: 8px;
+        }
+        .atContainer {
+          left: 102px;
+          top: 53px;
+          width: 8px;
+        }
+        .sDContainer {
+          left: 20px;
+          top: 92px;
+          width: 8px;
+        }
+        .deContainer {
+          left: 102px;
+          top: 92px;
+          width: 8px;
+        }
+        .spContainer {
+          left: 61px;
+          top: 100px;
+          width: 8px;
+        }
+
+        .dexContainer {
+          left: 144px;
+          top: 29px;
+          width: 15px;
+        }
+
+        .nameContainer {
+          left: 159px;
+          top: 29px;
+          width: 45px;
+        }
+
+        .typeContainer {
+          left: 204px;
+          top: 30px;
+          width: 15px;
+          height: 8px;
+
+          .typeIterator {
+            width: 8px;
+            height: 8px;
+
+            .typeImg {
+              height: 7px;
+              max-width: 7px;
+            }
+          }
+        }
+
+        .spriteContainer {
+          left: 228px;
+          bottom: 55px;
+          width: 80px;
+          height: 80px;
+        }
+
+        .redditContainer {
+          left: 10px;
+          bottom: 33px;
+          width: 110px;
+          height: 9px;
+        }
+
+        .otContainer {
+          left: 159px;
+          bottom: 34px;
+          width: 50px;
+        }
+
+        .tidContainer {
+          left: 251px;
+          bottom: 34px;
+          width: 50px;
+        }
+
+        .natureContainer {
+          left: 56px;
+          bottom: 24px;
+          width: 60px;
+        }
+
+        .abilityContainer {
+          left: 56px;
+          bottom: 14px;
+          width: 60px;
+        }
+
+        .tradeContainer {
+          left: 128px;
+          top: 125px;
+          width: 104px;
+        }
+
+        .notesContainer {
+          left: 233px;
+          top: 125px;
+          width: 80px;
+          height: 25px;
+        }
+
+        .boxContainer {
+          left: 233px;
+          top: 150px;
+          width: 80px;
+        }
+      }
+    }
+  }
+}

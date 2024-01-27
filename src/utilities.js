@@ -6,7 +6,7 @@ export default {
         }
         // Check various name inconsistencies between the sheet and how the sprite is named
         let spriteName = pkmnName;
-        if (pkmnName === 'Mr. Mime-Galar') {
+        if (pkmnName === 'Mr. Mime-Galarian') {
             spriteName = 'mr.-mime-galar';
         } else if (pkmnName === "Sirfetch'd") {
             spriteName = 'sirfetchd';
@@ -25,8 +25,6 @@ export default {
                 const index = pkmnName.indexOf('Cap');
                 spriteName = pkmnName.substring(0, index - 1) + 'cap';
             }
-        } else if (['Articuno-Galar', 'Zapdos-Galar', 'Moltres-Galar'].includes(pkmnName)) {
-            spriteName = pkmnName + 'ian';
         }
         return spriteName.toLowerCase();
     },
@@ -36,7 +34,7 @@ export default {
         }
         // Check various name inconsistencies between the sheet and how the sprite is named
         let spriteName = pkmnName;
-        if (pkmnName === 'Mr. Mime-Galar') {
+        if (pkmnName === 'Mr. Mime-Galarian') {
             spriteName = 'mr-mime-galarian';
         } else if (pkmnName === "Sirfetch'd") {
             spriteName = 'sirfetchd';
@@ -47,8 +45,6 @@ export default {
         } else if (pkmnName.startsWith('Pikachu-') && pkmnName != 'Pikachu-Gigantamax') {
             const index = pkmnName.indexOf('Cap');
             spriteName = pkmnName.substring(0, index - 1) + '-cap';
-        } else if (['Articuno-Galar', 'Zapdos-Galar', 'Moltres-Galar'].includes(pkmnName)) {
-            spriteName = pkmnName + 'ian';
         }
         return spriteName.toLowerCase();
     }

@@ -88,15 +88,10 @@ body {
       .textDiv {
         padding-left: 50px;
       }
-      
-      @media screen and (min-width:1300px) {
-        img {
-          width: 500px;
-          vertical-align: middle;
-          border: 10px solid var(--navbar-background);
-        }
+
+      img {
+        vertical-align: middle;
       }
-      
     }
 
     #detail-view {
@@ -105,347 +100,220 @@ body {
       }
 
       .eventData {
-        display: inline-block
+        display: inline-block;
+        vertical-align: top;
       }
 
-      // Base Size Elements - 1280px Image
-      @media screen and (min-width:1300px) {
-        .pokemonView {
-          position: relative;
-          margin: auto;
-          width: 1280px;
-          height: 628px;
-        }
+      .pokemonView {
+        position: relative;
+        margin: auto;
+      }
 
-        // Header Bar Info
-        h1 {
-          font-size: 32px;
-          color: #5D6955;
+      // Header Bar Info
+      h1 {
+        color: #5d6955;
+        text-align: center;
+      }
+
+      // Main Info
+      h2 {
+        color: #f1f9f9;
           text-align: center;
-        }
+      }
 
-        // Main Info
-        h2 {
-          font-size: 21px;
-          font-weight: 500;
-          color: #F1F9F9;
-          text-align: center;
-        }
+      // Nature, Ability and Detail Headers
+      h3 {
+        color: #5e655e;
+      }
 
-        // Nature, Ability and Detail Headers
-        h3 {
-          font-size: 20px;
-          font-weight: bold;
-          color: #5E655E;
-        }
+      // IV Information
+      h4 {
+        color: #715f5f;
+        text-align: center;
+      }
 
-        // IV Information
-        h4 {
-          font-size: 26px;
-          color: #715F5F;
-          text-align: center;
-          text-shadow: 0 0 5px #FFF, 0 0 5px #FFF; 
-        }
+      // Detail Body
+      h5 {
+        color: #5e655e;
+      }
 
-        // Detail Body
-        h5 {
-          font-size: 15px;
-          color: #5E655E;
-        }
+      // Box Info
+      h6 {
+        color: #647ae4;
+        text-align: right;
+      }
 
-        // Box Info
-        h6 {
-          font-size: 14px;
-          font-weight: bold;
-          color: #647ae4;
-          text-align: right;
-        }
+      // Reddit Detail
+      p {
+        color: #f1f9f9;
+        text-align: center;
+        vertical-align: middle;
+        display: table-cell;
+      }
 
-        // Reddit Detail
-        p {
-          font-size: 8px;
-          color: #F1F9F9;
-          text-align: center;
-          vertical-align: middle;
-          display: table-cell;
+      .tradeHistoryData {
+        display: table-row;
+        color: #5e655e;
+        &:hover {
+          color: var(--link-hover);
         }
+      }
 
-        .eventData {
-          font-size: 20px;
-          font-weight: bold;
+      .prevContainer {
+        position: absolute;
+        img {
+          vertical-align: top;
         }
+      }
 
-        .tradeHistoryData {
-          display: table-row;
-          font-size: 15px;
-          color: #5E655E;
-          &:hover {
-            color: var(--link-hover);
+      .ballContainer {
+        position: absolute;
+      }
+
+      .headNameContainer {
+        position: absolute;
+      }
+
+      .levelContainer {
+        position: absolute;
+      }
+
+      .isGigContainer {
+        position: absolute;
+      }
+
+      .isShinyContainer {
+        position: absolute;
+      }
+
+      .nextContainer {
+        position: absolute;
+        img {
+          position: absolute;
+          vertical-align: top;
+        }
+      }
+
+      .eventContainer {
+        position: absolute;
+      }
+
+      .hpContainer {
+        position: absolute;
+      }
+      .sAContainer {
+        position: absolute;
+      }
+      .atContainer {
+        position: absolute;
+      }
+      .sDContainer {
+        position: absolute;
+      }
+      .deContainer {
+        position: absolute;
+      }
+      .spContainer {
+        position: absolute;
+      }
+
+      .dexContainer {
+        position: absolute;
+      }
+
+      .nameContainer {
+        position: absolute;
+      }
+
+      .typeContainer {
+        position: absolute;
+
+        .typeIterator {
+          display: inline-block;
+          align-content: center;
+          
+          .typeImg {
+            width: auto;
+            vertical-align: top;
           }
         }
+      }
 
-        .prevContainer {
-          position: absolute;
-          left: 60px;
-          top: 5px;
-          width: 130px;
+      .spriteContainer {
+        position: absolute;
 
-          img {
-            width: 45px;
-            height: 45px;
-          }
+        .spriteImg {
+          background-size: contain;
+          background-position: center;
+          width: 100%;
+          height: 100%;
         }
+      }
 
-        .ballContainer {
-          position: absolute;
-          left: 240px;
-          top: 5px;
-          width: 45px;
-          height: 45px;
-        }
+      .redditContainer {
+        position: absolute;
+        display: table;
+      }
 
-        .headNameContainer {
-          position: absolute;
-          left: 290px;
-          top: 5px;
-          width: 420px;
-          height: 45px;
-        }
+      .otContainer {
+        position: absolute;
+      }
 
-        .levelContainer {
-          position: absolute;
-          left: 730px;
-          top: 5px;
-          width: 100px;
-          height: 45px;
-        }
+      .tidContainer {
+        position: absolute;
+      }
 
-        .isGigContainer {
-          position: absolute;
-          right: 290px;
-          top: 10px;
-          width: 40px;
-          height: 40px;
-        }
+      .natureContainer {
+        position: absolute;
+      }
 
-        .isShinyContainer {
-          position: absolute;
-          right: 240px;
-          top: 10px;
-          width: 40px;
-          height: 40px;
-        }
+      .abilityContainer {
+        position: absolute;
+      }
 
-        .nextContainer {
-          position: absolute;
-          right: 60px;
-          top: 5px;
-          width: 130px;
-          height: 50px;
+      .tradeContainer {
+        position: absolute;
+      }
 
-          img {
-            position: absolute;
-            right: 0px;
-            width: 45px;
-            height: 45px;
-          }
-        }
+      .notesContainer {
+        position: absolute;
+      }
 
-        .eventContainer {
-          position: absolute;
-          left: 280px;
-          top: 65px;
-          width: 800px;
-        }
-
-        .hpContainer {
-          position: absolute;
-          left: 242px;
-          top: 122px;
-          width: 30px;
-        }
-        .sAContainer {
-          position: absolute;
-          left: 80px;
-          top: 210px;
-          width: 30px;
-        }
-        .atContainer {
-          position: absolute;
-          left: 405px;
-          top: 210px;
-          width: 30px;
-        }
-        .sDContainer {
-          position: absolute;
-          left: 80px;
-          top: 365px;
-          width: 30px;
-        }
-        .deContainer {
-          position: absolute;
-          left: 405px;
-          top: 365px;
-          width: 30px;
-
-        }
-        .spContainer {
-          position: absolute;
-          left: 242px;
-          top: 400px;
-          width: 30px;
-        }
-
-        .dexContainer {
-          position: absolute;
-          left: 575px;
-          top: 117px;
-          width: 60px;
-        }
-
-        .nameContainer {
-          position: absolute;
-          left: 635px;
-          top: 117px;
-          width: 180px;
-        }
-
-        .typeContainer {
-          position: absolute;
-          left: 815px;
-          top: 117px;
-          width: 60px;
-          height: 32px;
-
-          .typeIterator {
-            display: inline-block;
-            width: 30px;
-            align-content: center;
-
-            .typeImg {
-              width: auto;
-              height: 28px;
-              max-width: 28px;
-            }
-          }
-        }
-
-        .spriteContainer {
-          position: absolute;
-          left: 910px;
-          bottom: 220px;
-          width: 320px;
-          height: 320px;
-
-          .spriteImg {
-            background-size: contain;
-            background-position: center;
-            width: 100%;
-            height: 100%;
-          }
-        }
-
-        .redditContainer {
-          position: absolute;
-          left: 40px;
-          bottom: 130px;
-          width: 440px;
-          height: 33px;
-          display: table;
-        }
-
-        .otContainer {
-          position: absolute;
-          left: 635px;
-          bottom: 135px;
-          width: 200px;
-        }
-
-        .tidContainer {
-          position: absolute;
-          left: 1004px;
-          bottom: 135px;
-          width: 200px;
-        }
-
-        .natureContainer {
-          position: absolute;
-          left: 221px;
-          bottom: 93px;
-          width: 240px;
-        }
-
-        .abilityContainer {
-          position: absolute;
-          left: 221px;
-          bottom: 54px;
-          width: 240px;
-        }
-
-        .tradeContainer {
-          position: absolute;
-          left: 510px;
-          top: 500px;
-          width: 415px;
-        }
-
-        .notesContainer {
-          position: absolute;
-          left: 930px;
-          top: 500px;
-          width: 320px;
-          height: 100px;
-        }
-
-        .boxContainer {
-          position: absolute;
-          left: 930px;
-          top: 600px;
-          width: 320px;
-        }
+      .boxContainer {
+        position: absolute;
       }
 
       // Upper-Mid Size Elements - 960px Image
-      @media screen and (min-width:980px) and (max-width:1299px) {
+      @media screen and (min-width: 980px) and (max-width: 1299px) {
         .pokemonView {
-          margin:auto;
+          margin: auto;
           width: 960px;
           height: 421px;
         }
       }
 
       // Lower-Mid Size Elements - 640px Image
-      @media screen and (min-width:660px) and (max-width:979px) {
+      @media screen and (min-width: 660px) and (max-width: 979px) {
         .pokemonView {
-          margin:auto;
+          margin: auto;
           width: 640px;
           height: 314px;
-        }
-      }
-
-      // Small Size Elements - 320px Image
-      @media screen and (max-width:659px) {
-        .pokemonView {
-          margin:auto;
-          width: 320px;
-          height: 157px;
         }
       }
     }
 
     #sheet-view {
       padding: 10px 40px;
-
     }
 
     table {
-      $table-cell-border:0;
+      $table-cell-border: 0;
       border: 4px solid #ccc;
       color: var(--text-table);
       font-weight: bold;
       margin: 10px 0 0 0;
       width: 100%;
-      padding: .5em .5em;
+      padding: 0.5em 0.5em;
 
       img {
         max-height: 128px;

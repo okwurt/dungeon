@@ -20,24 +20,28 @@ export default {
         }
         // Separate URL string for Gen 8 mons in PP
         else if (generation == '8') {
+            // Trim off "ian" from Galarian forms
+            if (pkmnName.endsWith('galarian')) {
+                pkmnName = pkmnName.substring(0, pkmnName.length-3)
+            }
             return this.fetchSpriteSWSH(pkmnName, isShiny);
         }
 
         return this.fetchSpriteGIF(pkmnName, isShiny)
     },
     fetchSpriteGIF : function (pkmnName, isShiny) {
-        return (isShiny === true ? SpriteURLBase.SHINY : SpriteURLBase.NORMAL) +
+        return (isShiny ? SpriteURLBase.SHINY : SpriteURLBase.NORMAL) +
             pkmnName +
             '.gif';
     },
     fetchSpriteSWSH : function (pkmnName, isShiny) {
-        return (isShiny === true ? SpriteURLBase.SWSH_SHINY : SpriteURLBase.SWSH_NORMAL) +
+        return (isShiny ? SpriteURLBase.SWSH_SHINY : SpriteURLBase.SWSH_NORMAL) +
             pkmnName +
             '.gif';
     },
     fetchHomeSprite : function (pkmnName, isShiny) {
         // This will be hit for one-offs or for mons not currently in PP GIFS
-        return (isShiny === true ? SpriteURLBase.PDB_SHINY : SpriteURLBase.PDB_NORMAL) +
+        return (isShiny ? SpriteURLBase.PDB_SHINY : SpriteURLBase.PDB_NORMAL) +
             pkmnName +
             '.png';
     },
