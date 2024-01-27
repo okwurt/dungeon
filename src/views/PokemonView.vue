@@ -305,8 +305,12 @@ export default {
     },
     trimmedName: function() {
       const apiName = this.pokemonData?.name
+      const rawName = this.row.get('name')
       if (apiName == null) {
         return apiName
+      } else if (this.row.get('generation') == '9' && rawName.includes(" ")) {
+        // These are the Paradox Mons
+        return rawName
       }
       const firstLetter = apiName.charAt(0)
       return firstLetter.toUpperCase() + apiName.slice(1)

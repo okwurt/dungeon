@@ -1,7 +1,7 @@
 <template>
   <div id="sheet-view" v-if="loaded" class="table-container" width="100%">
     <h2>Click anywhere in the Row for Full Details</h2>
-    <table class="table">
+    <table>
       <thead>
         <tr class="backgroundheader no-bottom-border">
           <th></th>
@@ -73,8 +73,7 @@ export default {
   methods: {
     loadSheet: async function () {
       this.sheetName = this.$route.params.sheetName.replaceAll('-', ' ')
-      const sheetID = import.meta.env.VITE_SHEETID
-      const doc = new GoogleSpreadsheet(sheetID, { apiKey: import.meta.env.VITE_APIKEY })
+      const doc = new GoogleSpreadsheet(import.meta.env.VITE_SHEETID, { apiKey: import.meta.env.VITE_APIKEY })
 
       await doc.loadInfo()
       const sheet = doc.sheetsByTitle[this.sheetName]

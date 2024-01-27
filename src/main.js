@@ -1,5 +1,7 @@
 import './assets/main.scss'
 import './assets/large.scss'
+import './assets/medium.scss'
+import './assets/small-ls.scss'
 import './assets/small.scss'
 
 import { createApp, h } from 'vue'

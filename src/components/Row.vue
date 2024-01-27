@@ -1,6 +1,6 @@
 <template>
-  <tr class="normalrow no-bottom-border" @click="$emit('viewInfo')">
-    <td rowspan="2" class="verticalcenter" width="150">
+  <tr class="normalrow no-bottom-border" v-if="rawName != null" @click="$emit('viewInfo')">
+    <td rowspan="2" class="verticalcenter">
       <img
         v-if="spriteImg != ''"
         :src="spriteImg"
@@ -9,12 +9,12 @@
         onload="this.style.visibility = 'visible'"
       />
     </td>
-    <td class="verticalbottom">
-      <img v-bind:src="ballImg" height="50" width="50" />
+    <td class="ballCell verticalbottom">
+      <img  v-bind:src="ballImg" />
     </td>
     <td class="verticalbottom">{{ row.get('event') }}</td>
-    <td class="verticalbottom" width="60">
-      <img v-if="isShiny" v-bind:src="shinyImg" height="40" width="40" />
+    <td class="tagCell verticalbottom">
+      <img v-if="isShiny" v-bind:src="shinyImg" />
     </td>
     <td class="verticalcenter">
       {{ row.get('ot') }} <br />
@@ -24,12 +24,12 @@
     <td rowspan="2" class="verticalcenter">{{ row.get('tradeHistory') }}</td>
     <td rowspan="2" class="verticalcenter">{{ row.get('disclosure') }}</td>
   </tr>
-  <tr class="normalrow no-bottom-border" @click="$emit('viewInfo')">
+  <tr class="normalrow no-bottom-border" v-if="rawName != null" @click="$emit('viewInfo')">
     <!-- Column 1 is Sprite IMG with Span 2 -->
     <td class="subrow verticalcenter">{{ this.ballName }}</td>
-    <td class="verticaltop">{{ row.get('name') }}</td>
-    <td class="verticaltop" width="60">
-      <img v-if="isGigantamax" v-bind:src="gigantamaxImg" height="40" width="40" />
+    <td class="verticaltop">{{ rawName }}</td>
+    <td class="tagCell verticaltop">
+      <img v-if="isGigantamax" v-bind:src="gigantamaxImg" />
     </td>
     <td class="verticalcenter">
       Level <br />
@@ -51,8 +51,11 @@ export default {
   props: ['sheet', 'row'],
   emits: ['viewInfo'],
   computed: {
+    rawName() {
+      return this.row.get('name')
+    },
     pkmnName() {
-      return Utilities.sanitizeName(this.row.get('name'))
+      return Utilities.sanitizeName(this.rawName)
     },
     shinyImg() {
       const isShiny = this.row.get('isShiny')
@@ -80,7 +83,7 @@ export default {
       return Sprites.fetchBallIMG(this.ballName, this.pkmnName)
     },
     isGigantamax() {
-      return this.row.get('name').toLowerCase().includes('gigantamax')
+      return this.rawName?.toLowerCase().includes('gigantamax')
     },
     gigantamaxImg() {
       return this.isGigantamax ? Images.gigantamaxImg() : ''

@@ -26,7 +26,7 @@ export default {
                 spriteName = pkmnName.substring(0, index - 1) + 'cap';
             }
         }
-        return spriteName.toLowerCase();
+        return spriteName.replaceAll(" ", "-").toLowerCase();
     },
     sanitizeNameHomeOnly : function(pkmnName) {
         if (pkmnName == null || pkmnName == '') {
@@ -46,6 +46,6 @@ export default {
             const index = pkmnName.indexOf('Cap');
             spriteName = pkmnName.substring(0, index - 1) + '-cap';
         }
-        return spriteName.toLowerCase();
+        return spriteName.replaceAll(" ", "-").toLowerCase();
     }
 }

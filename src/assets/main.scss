@@ -25,14 +25,6 @@ body {
     }
   }
 
-  h1 {
-    font-size: 24px;
-  }
-
-  h2 {
-    font-size: 12px;
-  }
-
   [v-cloak] {
     display: none;
   }
@@ -65,9 +57,6 @@ body {
           color: var(--text-navbar);
           background-color: var(--navbar-hover);
         }
-      }
-      .navbar-menu {
-        background-color: inherit;
       }
     }
     .navbar-end {
@@ -118,7 +107,7 @@ body {
       // Main Info
       h2 {
         color: #f1f9f9;
-          text-align: center;
+        text-align: center;
       }
 
       // Nature, Ability and Detail Headers
@@ -231,7 +220,7 @@ body {
         .typeIterator {
           display: inline-block;
           align-content: center;
-          
+
           .typeImg {
             width: auto;
             vertical-align: top;
@@ -315,18 +304,6 @@ body {
       width: 100%;
       padding: 0.5em 0.5em;
 
-      img {
-        max-height: 128px;
-      }
-
-      .shortrow {
-        height: 10px;
-      }
-
-      .normalrow {
-        height: 75px;
-      }
-
       .verticaltop {
         vertical-align: top;
       }
@@ -337,6 +314,14 @@ body {
 
       .verticalbottom {
         vertical-align: bottom;
+      }
+
+      .spriteCell {
+        padding: 2px 2px;
+      }
+
+      .ballCell {
+        padding: 0 0;
       }
 
       .hyperlinktext {

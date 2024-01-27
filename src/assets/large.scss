@@ -2,20 +2,34 @@
 
 @import '../../node_modules/bulma/bulma';
 
-body {
-  #main-section {
-    #home-view {
-      @media screen and (min-width: 1300px) {
+// Base Size Elements - 1280px Image
+@media screen and (min-width: 1300px) {
+  body {
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 12px;
+    }
+
+    #customheader {
+      .navbar {
+        .navbar-item {
+          font-size: medium;
+        }
+      }
+    }
+
+    #main-section {
+      #home-view {
         img {
           width: 500px;
           border: 10px solid var(--navbar-background);
         }
       }
-    }
 
-    #detail-view {
-      // Base Size Elements - 1280px Image
-      @media screen and (min-width: 1300px) {
+      #detail-view {
         .pokemonView {
           width: 1280px;
           height: 628px;
@@ -244,6 +258,48 @@ body {
           left: 930px;
           top: 600px;
           width: 320px;
+        }
+      }
+
+      table {
+        img {
+          max-height: 128px;
+        }
+
+        .shortrow {
+          height: 10px;
+        }
+
+        .normalrow {
+          height: 75px;
+        }
+
+        .spriteCell {
+          width: 150px;
+        }
+
+        .ballCell {
+          img {
+            width: 50px;
+            height: 50px;
+          }
+        }
+
+        .tagCell {
+          width: 60px;
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        thead tr th {
+          font-size: large;
+        }
+
+        tbody tr td {
+          font-size: medium;
+          min-width: 40px;
         }
       }
     }
