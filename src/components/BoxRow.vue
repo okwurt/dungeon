@@ -7,6 +7,7 @@ import BoxCell from './BoxCell.vue'
 
 export default {
   name: 'BoxRow',
+  props: ['rows'],
   components: {
     BoxCell
   },
