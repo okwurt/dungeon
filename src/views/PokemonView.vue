@@ -118,6 +118,8 @@
       <div class="notesContainer">
         <h3>Disclosure / Notes:</h3>
         <h5>{{ this.row.get('disclosure') }}</h5>
+        <h3>Proof:</h3>
+        <h5>{{ this.row.get('proof') }}</h5>
       </div>
       <div class="boxContainer">
         <h6>Box Location: {{ this.row.get('box') }}</h6>
