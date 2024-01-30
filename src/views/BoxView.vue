@@ -1,19 +1,26 @@
 <template>
   <div id="box-view" v-if="loaded">
     <div class="boxHeader">
-      <v-btn> {{ this.prevBoxName }} </v-btn>
+      <Button :label="prevBoxName" outlined/>
       <Dropdown v-model="currentBox" :options="boxNames" placeholder="Select a Box" />
-      <v-btn> {{ this.nextBoxName }} </v-btn>
+      <Button :label="nextBoxName" outlined class="button-centered-right"/>
     </div>
-    <Box />
+    <div class="pokemonBox no-outline">
+      <BoxRow :rows="row1" />
+      <BoxRow :rows="row2" />
+      <BoxRow :rows="row3" />
+      <BoxRow :rows="row4" />
+      <BoxRow :rows="row5" />
+    </div>
   </div>
 </template>
 
 <script>
-import Box from '../components/Box.vue'
+import BoxRow from '../components/BoxRow.vue'
 
 import { SheetNames } from '../config.js'
 
+import Button from 'primevue/button'
 import Dropdown from 'primevue/dropdown'
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 
@@ -21,7 +28,8 @@ export default {
   name: 'BoxView',
   props: ['config'],
   components: {
-    Box,
+    BoxRow,
+    Button,
     Dropdown
   },
   created: async function () {
@@ -56,6 +64,81 @@ export default {
         return ''
       }
       return this.boxNames[this.boxIndex + 1]
+    },
+    rowsInBox() {
+      return this.allRows.filter(function (el) {
+        return el.get('box')?.split('.')[0] == this.currentBox
+      }, this)
+    },
+    row1() {
+      return this.rowsInBox
+        .filter(function (el) {
+          return el.get('box')?.split('.')[1] == 1
+        })
+        .sort(function (a, b) {
+          if (a.get('box').split('.')[2] > b.get('box').split('.')[2]) {
+            return 1
+          } else if (b.get('box').split('.')[2] > a.get('box').split('.')[2]) {
+            return -1
+          }
+          return 0
+        })
+    },
+    row2() {
+      return this.rowsInBox
+        .filter(function (el) {
+          return el.get('box')?.split('.')[1] == 2
+        })
+        .sort(function (a, b) {
+          if (a.get('box').split('.')[2] > b.get('box').split('.')[2]) {
+            return 1
+          } else if (b.get('box').split('.')[2] > a.get('box').split('.')[2]) {
+            return -1
+          }
+          return 0
+        })
+    },
+    row3() {
+      return this.rowsInBox
+        .filter(function (el) {
+          return el.get('box')?.split('.')[1] == 3
+        })
+        .sort(function (a, b) {
+          if (a.get('box').split('.')[2] > b.get('box').split('.')[2]) {
+            return 1
+          } else if (b.get('box').split('.')[2] > a.get('box').split('.')[2]) {
+            return -1
+          }
+          return 0
+        })
+    },
+    row4() {
+      return this.rowsInBox
+        .filter(function (el) {
+          return el.get('box')?.split('.')[1] == 4
+        })
+        .sort(function (a, b) {
+          if (a.get('box').split('.')[2] > b.get('box').split('.')[2]) {
+            return 1
+          } else if (b.get('box').split('.')[2] > a.get('box').split('.')[2]) {
+            return -1
+          }
+          return 0
+        })
+    },
+    row5() {
+      return this.rowsInBox
+        .filter(function (el) {
+          return el.get('box')?.split('.')[1] == 5
+        })
+        .sort(function (a, b) {
+          if (a.get('box').split('.')[2] > b.get('box').split('.')[2]) {
+            return 1
+          } else if (b.get('box').split('.')[2] > a.get('box').split('.')[2]) {
+            return -1
+          }
+          return 0
+        })
     }
   },
   methods: {
