@@ -1,9 +1,9 @@
 <template>
   <div id="box-view" v-if="loaded">
     <div class="boxHeader">
-      <Button :label="prevBoxName" outlined/>
+      <Button :label="prevBoxName" outlined icon="pi pi-arrow-left" class="buttonLeft"/>
       <Dropdown v-model="currentBox" :options="boxNames" placeholder="Select a Box" />
-      <Button :label="nextBoxName" outlined class="button-centered-right"/>
+      <Button :label="nextBoxName" outlined icon="pi pi-arrow-right" icon-pos="right" class="buttonRight"/>
     </div>
     <div class="pokemonBox no-outline">
       <BoxRow :rows="row1" />
@@ -12,11 +12,13 @@
       <BoxRow :rows="row4" />
       <BoxRow :rows="row5" />
     </div>
+    <div hidden>{{ this.boxRows?.length }}</div>
   </div>
 </template>
 
 <script>
 import BoxRow from '../components/BoxRow.vue'
+import { useBoxStore } from '@/stores/box'
 
 import { SheetNames } from '../config.js'
 
@@ -139,6 +141,15 @@ export default {
           }
           return 0
         })
+    },
+    boxRows() {
+        if (this.row1 == null || this.row1 == []) {
+            return []
+        }
+        const storedRows = this.row1.concat(this.row2).concat(this.row3).concat(this.row4).concat(this.row5)
+        const box = useBoxStore()
+        box.setCurrentBox(storedRows)
+        return storedRows
     }
   },
   methods: {

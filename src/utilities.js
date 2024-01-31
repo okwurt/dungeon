@@ -40,8 +40,6 @@ export default {
             spriteName = 'sirfetchd';
         } else if (pkmnName === 'Sinistea-Antique') {
             spriteName = 'sinistea';
-        } else if (pkmnName.startsWith('Tapu')) {
-            spriteName = 'tapu' + pkmnName.substring(5);
         } else if (pkmnName.startsWith('Pikachu-') && pkmnName != 'Pikachu-Gigantamax') {
             const index = pkmnName.indexOf('Cap');
             spriteName = pkmnName.substring(0, index - 1) + '-cap';

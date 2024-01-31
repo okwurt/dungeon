@@ -13,6 +13,7 @@ import router from './router'
 
 import '@fortawesome/fontawesome-free/css/all.css'
 import 'primevue/resources/themes/lara-light-teal/theme.css'
+import 'primeicons/primeicons.css'
 
 // PrimeVue
 import PrimeVue from "primevue/config";
