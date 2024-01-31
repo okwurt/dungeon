@@ -6,7 +6,6 @@
 
 <script>
 import { useBoxStore } from '@/stores/box'
-import { storeToRefs } from 'pinia'
 
 import Sprites from '../sprites.js'
 import Utilities from '../utilities.js'
