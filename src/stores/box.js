@@ -8,12 +8,10 @@ export const useBoxStore = defineStore('box', {
         currentBox(state) {
             return state.boxRows
         }
-
     },
     actions: {
         setCurrentBox(boxRows) {
             this.boxRows = boxRows
         }
     }
-
 })
