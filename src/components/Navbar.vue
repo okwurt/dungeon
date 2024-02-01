@@ -11,7 +11,9 @@
             :to="`/sheet/${sheet}`"
             >{{ sheet }}
           </RouterLink>
-          <RouterLink class="navbar-item navbar-end" to="/boxes">Boxes</RouterLink>
+        </div>
+        <div class="navbar-end">
+          <RouterLink class="navbar-item" to="/boxes">Boxes</RouterLink>
         </div>
       </div>
     </nav>

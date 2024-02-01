@@ -1,5 +1,6 @@
 <template>
 <div class="boxCell">
+  <span v-if="eventTitle != ''" class="boxText">{{ this.eventTitle }} <br/> {{ this.otTitle }} <br/> {{ this.tidTitle }}</span>
   <img v-if="pkmnImg != ''" :src="pkmnImg" class="boxImage" @click="routeToInfoView()" />
 </div>
 </template>
@@ -34,6 +35,24 @@ export default {
         return ''
       }
       return Sprites.fetchHomeSprite(this.pkmnName, this.isShiny)
+    },
+    eventTitle() {
+      if (this.row == null) {
+        return ''
+      }
+      return this.row.get('event') + ' ' + this.row.get('name')
+    },
+    otTitle() {
+      if (this.row == null) {
+        return ''
+      }
+      return 'OT:  ' + this.row.get('ot')
+    },
+    tidTitle() {
+      if (this.row == null) {
+        return ''
+      }
+      return 'TID: ' + this.row.get('id')
     }
   },
   methods: {
@@ -46,18 +65,6 @@ export default {
           index: rows.indexOf(this.row)
         }
       })
-    },
-    printElem: function() {
-      const boxStore = useBoxStore()
-      const rows = boxStore.currentBox
-      //console.log(rows[0].get('name'))
-
-      // Find the Current Array elem
-
-      const index = rows.indexOf(this.row)
-      const storedRow = rows[index]
-      console.log('Index: '+index + ' - ' + storedRow.get('name'))
-
     }
   } 
 }

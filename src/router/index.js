@@ -30,6 +30,11 @@ const router = createRouter({
       component: BoxView
     },
     {
+      path: '/boxes/:boxName',
+      name: 'box',
+      component: BoxView
+    },
+    {
       path: '/boxes/pokemon/:index',
       name: 'boxPokemon',
       component: PokeBoxView,

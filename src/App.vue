@@ -14,6 +14,10 @@
     <section id="main-section" class="section">
       <RouterView :config="this.config"></RouterView>
     </section>
+
+    <footer class="footer" v-if="isHomePath">
+      <p>Created with <a href="https://vuejs.org/">vuejs 3 and Vite</a> with inspiration from sejinsjn and stinkynate ... Find this project on <a href="https://github.com/Dengar66/dungeon">Github <i class="fab fa-github-alt"></i></a></p>
+    </footer>
   </div>
 </template>
 
@@ -49,6 +53,9 @@ export default {
   computed: {
     sheets() {
       return SheetNames
+    },
+    isHomePath(){
+      return this.$route.path==='/'
     }
   },
   methods: {

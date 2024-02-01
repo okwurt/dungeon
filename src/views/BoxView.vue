@@ -41,6 +41,10 @@ export default {
     window.removeEventListener('keydown', this.handleKeydown)
   },
   created: async function () {
+    const params = this.$route.params
+    if (params != null && params.boxName != null && params.boxName != '') {
+      this.currentBox = params.boxName
+    }
     await this.loadSheet()
     this.determineBoxNames()
     window.onhashchange = this.loadSheet

@@ -118,10 +118,10 @@
       <div class="notesContainer">
         <h3>Disclosure / Notes:</h3>
         <h5>{{ this.row.get('disclosure') }}</h5>
-        <h3>Proof:</h3>
-        <h5>{{ this.row.get('proof') }}</h5>
+        <h3 style="display: inline;">Proof:</h3>&nbsp;
+        <h5 style="display: inline;">{{ this.row.get('proof') }}</h5>
       </div>
-      <div class="boxContainer">
+      <div class="boxContainer" @click="routeToBoxView()">
         <h6>Box Location: {{ this.row.get('box') }}</h6>
       </div>
     </div>
@@ -295,6 +295,14 @@ export default {
         params: {
           sheetName: this.$route.params.sheetName,
           rowNum: rowNumber
+        }
+      })
+    },
+    routeToBoxView: function () {
+      this.$router.push({
+        name: 'box',
+        params: {
+          boxName: this.row.get('box').split('.')[0]
         }
       })
     },
