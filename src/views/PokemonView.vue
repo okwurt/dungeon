@@ -330,10 +330,14 @@ export default {
     handleKeydown: function (event) {
       switch (event.keyCode) {
         case 37:
-          this.routeToInfoView(parseInt(this.rowNumber) - 1)
+          if (this.prevPkmnName != '') {
+            this.routeToInfoView(parseInt(this.rowNumber) - 1)
+          }
           break
         case 39:
-          this.routeToInfoView(parseInt(this.rowNumber) + 1)
+          if (this.nextPkmnName != '') {
+            this.routeToInfoView(parseInt(this.rowNumber) + 1)
+          }
           break
       }
     }

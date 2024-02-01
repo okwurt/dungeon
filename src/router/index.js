@@ -32,7 +32,8 @@ const router = createRouter({
     {
       path: '/boxes/pokemon/:index',
       name: 'boxPokemon',
-      component: PokeBoxView
+      component: PokeBoxView,
+      params: true
     }
   ]
 })

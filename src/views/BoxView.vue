@@ -1,9 +1,9 @@
 <template>
   <div id="box-view" v-if="loaded">
     <div class="boxHeader">
-      <Button :label="prevBoxName" outlined icon="pi pi-arrow-left" class="buttonLeft"/>
+      <Button :label="prevBoxName" outlined icon="pi pi-arrow-left" class="buttonLeft" @click="updateBox(prevBoxName)"/>
       <Dropdown v-model="currentBox" :options="boxNames" placeholder="Select a Box" />
-      <Button :label="nextBoxName" outlined icon="pi pi-arrow-right" icon-pos="right" class="buttonRight"/>
+      <Button :label="nextBoxName" outlined icon="pi pi-arrow-right" icon-pos="right" class="buttonRight" @click="updateBox(nextBoxName)"/>
     </div>
     <div class="pokemonBox no-outline">
       <BoxRow :rows="row1" />
@@ -33,6 +33,12 @@ export default {
     BoxRow,
     Button,
     Dropdown
+  },
+  beforeMount() {
+    window.addEventListener('keydown', this.handleKeydown, null)
+  },
+  beforeUnmount() {
+    window.removeEventListener('keydown', this.handleKeydown)
   },
   created: async function () {
     await this.loadSheet()
@@ -174,10 +180,6 @@ export default {
       this.loaded = true
     },
     determineBoxNames: function () {
-      // Grab rows with Box populated
-      /*const boxedRows = allRows.filter(function (el) {
-        return el.get('box') != null && el.get('box') != ''
-      })*/
       const boxNames = new Set()
       for (const row of this.allRows) {
         const boxValue = row.get('box')
@@ -185,7 +187,6 @@ export default {
           boxNames.add(boxValue.split('.')[0])
         }
       }
-      console.log(boxNames)
       this.boxNames = Array.from(boxNames).sort(function (a, b) {
         if (a > b) {
           return a.substring(0, 3) === b.substring(0, 3) && a.length < b.length ? -1 : 1
@@ -194,6 +195,23 @@ export default {
         }
         return 0
       })
+    },
+    updateBox: function(boxName) {
+        this.currentBox = boxName
+    },
+    handleKeydown: function (event) {
+      switch (event.keyCode) {
+        case 37:
+          if (this.prevBoxName != '') {
+            this.updateBox(this.prevBoxName)
+          }
+          break
+        case 39:
+          if (this.nextBoxName != '') {
+            this.updateBox(this.nextBoxName)
+          }
+          break
+      }
     }
   }
 }

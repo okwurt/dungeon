@@ -111,10 +111,8 @@ import Sprites from '../sprites.js'
 import Utilities from '../utilities.js'
 
 import { Pokedex } from 'pokeapi-js-wrapper'
-const P = new Pokedex()
 
-const boxStore = useBoxStore()
-const rows = boxStore.currentBox
+const P = new Pokedex()
 
 export default {
   name: 'PokeBoxInfo',
@@ -123,7 +121,8 @@ export default {
     return {
       loaded: false,
       empty: false,
-      pokemonData: null
+      pokemonData: null,
+      row: null
     }
   },
   beforeMount() {
@@ -133,20 +132,25 @@ export default {
     window.removeEventListener('keydown', this.handleKeydown)
   },
   created: async function () {
+    const boxStore = useBoxStore()
+    const rows = boxStore.currentBox
     // Ensure that the Store has Box Information
     if (rows == null || rows.length == 0) {
       this.empty = true
       return
     }
 
+    this.row = rows[parseInt(this.index)]
     this.pokemonData = this.fetchPokeAPIInfo()
     this.loaded = true
-    window.onhashchange = this.loadSheet
+
     this.$watch(
       () => this.$route.params,
       async (toParams, previousParams) => {
         this.loaded = false
+        this.row = null
         this.pokemonData = null
+        this.row = rows[parseInt(this.index)]
         this.fetchPokeAPIInfo()
         this.loaded = true
       }
@@ -156,18 +160,22 @@ export default {
     backgroundImage() {
       return PokemonDetail
     },
-    row() {
-      return rows[parseInt(this.index)]
+    index() {
+      return this.$route.params.index
+    },
+    rows() {
+      const boxStore = useBoxStore()
+      return boxStore.currentBox
     },
     prevRow() {
       if (this.index > 0) {
-        return rows[parseInt(this.index) - 1]
+        return this.rows[parseInt(this.index) - 1]
       }
       return null
     },
     nextRow() {
-      if (this.index < rows.length - 1) {
-        return rows[parseInt(this.index) + 1]
+      if (this.index < this.rows.length - 1) {
+        return this.rows[parseInt(this.index) + 1]
       }
       return null
     },
@@ -209,13 +217,13 @@ export default {
       return this.isGigantamax ? Images.gigantamaxImg() : ''
     },
     prevPkmnName() {
-      return Utilities.sanitizeNameHomeOnly(this.rows[0].get('name'))
+      return Utilities.sanitizeNameHomeOnly(this.prevRow?.get('name'))
     },
     prevPkmnImg() {
       return Sprites.fetchHomeSprite(this.prevPkmnName)
     },
     nextPkmnName() {
-      return Utilities.sanitizeNameHomeOnly(this.rows[2]?.get('name'))
+      return Utilities.sanitizeNameHomeOnly(this.nextRow?.get('name'))
     },
     nextPkmnImg() {
       return Sprites.fetchHomeSprite(this.nextPkmnName)
@@ -225,12 +233,11 @@ export default {
     }
   },
   methods: {
-    routeToInfoView: function (rowNumber) {
+    routeToInfoView: function (index) {
       this.$router.push({
-        name: 'pokemon',
+        name: 'boxPokemon',
         params: {
-          sheetName: this.$route.params.sheetName,
-          rowNum: rowNumber
+          index: index
         }
       })
     },
@@ -266,10 +273,14 @@ export default {
     handleKeydown: function (event) {
       switch (event.keyCode) {
         case 37:
-          this.routeToInfoView(parseInt(this.rowNumber) - 1)
+          if (this.prevPkmnName != '') {
+            this.routeToInfoView(parseInt(this.index) - 1)
+          }
           break
         case 39:
-          this.routeToInfoView(parseInt(this.rowNumber) + 1)
+          if (this.nextPkmnName != '') {
+            this.routeToInfoView(parseInt(this.index) + 1)
+          }
           break
       }
     }

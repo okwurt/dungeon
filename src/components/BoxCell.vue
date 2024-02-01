@@ -1,6 +1,6 @@
 <template>
 <div class="boxCell">
-  <img v-if="pkmnImg != ''" :src="pkmnImg" class="boxImage" @click="printElem" />
+  <img v-if="pkmnImg != ''" :src="pkmnImg" class="boxImage" @click="routeToInfoView()" />
 </div>
 </template>
 
@@ -35,9 +35,18 @@ export default {
       }
       return Sprites.fetchHomeSprite(this.pkmnName, this.isShiny)
     }
-
   },
   methods: {
+    routeToInfoView: function () {
+      const boxStore = useBoxStore()
+      const rows = boxStore.currentBox
+      this.$router.push({
+        name: 'boxPokemon',
+        params: {
+          index: rows.indexOf(this.row)
+        }
+      })
+    },
     printElem: function() {
       const boxStore = useBoxStore()
       const rows = boxStore.currentBox
