@@ -1,11 +1,14 @@
 <template>
+  <div v-if="empty">
+    <h1>No Boxes are loaded, please select a Box in Box View</h1>
+  </div>
   <div id="detail-view" v-if="loaded">
     <div class="pokemonView" v-bind:style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <!-- Header Bar Info -->
       <div
         v-if="prevPkmnName != ''"
         class="prevContainer"
-        @click="routeToInfoView(parseInt(this.rowNumber) - 1)"
+        @click="routeToInfoView(parseInt(this.index) - 1)"
       >
         <img :src="prevPkmnImg" />
       </div>
@@ -21,15 +24,14 @@
       <div
         v-if="nextPkmnName != ''"
         class="nextContainer"
-        @click="routeToInfoView(parseInt(this.rowNumber) + 1)"
+        @click="routeToInfoView(parseInt(this.index) + 1)"
       >
         <img :src="nextPkmnImg" />
       </div>
       <div class="eventContainer">
-        <h3 class="eventData">Event (Bulbapedia Link): &nbsp;</h3>
-        <a class="eventData" :href="eventCell.hyperlink">{{
-          this.row.get('event') + ' ' + this.trimmedName()
-        }}</a>
+        <h3 class="eventData">
+          Event: {{ this.row.get('event') + ' ' + this.trimmedName() }}
+        </h3>
       </div>
       <!-- IV Info -->
       <div class="hpContainer">
@@ -85,35 +87,7 @@
       <!-- Detailed Information -->
       <div class="tradeContainer">
         <h3>Trade History:</h3>
-        <h5 v-if="selfObtained">{{ this.row.get('tradeOrigin') }}</h5>
-        <a
-          v-else-if="tradeOrigCell.hyperlink != null"
-          class="tradeHistoryData"
-          :href="tradeOrigCell.hyperlink"
-          >{{ this.row.get('tradeOrigin') }}</a
-        >
-        <h5 v-else>{{ this.row.get('tradeOrigin') }}</h5>
-        <a
-          v-if="tradeHop1Cell.hyperlink != null"
-          class="tradeHistoryData"
-          :href="tradeHop1Cell.hyperlink"
-          >{{ this.row.get('tradeHop1') }}</a
-        >
-        <h5 v-else>{{ this.row.get('tradeHop1') }}</h5>
-        <a
-          v-if="tradeHop2Cell.hyperlink != null"
-          class="tradeHistoryData"
-          :href="tradeHop1Cell.hyperlink"
-          >{{ this.row.get('tradeHop2') }}</a
-        >
-        <h5 v-else>{{ this.row.get('tradeHop2') }}</h5>
-        <a
-          v-if="tradeHop3Cell.hyperlink != null"
-          class="tradeHistoryData"
-          :href="tradeHop1Cell.hyperlink"
-          >{{ this.row.get('tradeHop3') }}</a
-        >
-        <h5 v-else>{{ this.row.get('tradeHop3') }}</h5>
+        <h5>{{ this.row.get('tradeHistory') }}</h5>
       </div>
       <div class="notesContainer">
         <h3>Disclosure / Notes:</h3>
@@ -130,31 +104,25 @@
 
 <script>
 import PokemonDetail from '@/assets/images/PokemonHomeBlank.jpg'
+import { useBoxStore } from '@/stores/box'
 
 import Images from '../images.js'
 import Sprites from '../sprites.js'
 import Utilities from '../utilities.js'
 
-import { GoogleSpreadsheet } from 'google-spreadsheet'
-
 import { Pokedex } from 'pokeapi-js-wrapper'
+
 const P = new Pokedex()
 
 export default {
-  name: 'PokemonInfo',
+  name: 'PokeBoxInfo',
   props: ['config'],
   data() {
     return {
       loaded: false,
-      spreadsheet: null,
-      rows: [],
-      rowNumber: 0,
-      eventCell: null,
-      tradeOrigCell: null,
-      tradeHop1Cell: null,
-      tradeHop2Cell: null,
-      tradeHop3Cell: null,
-      pokemonData: null
+      empty: false,
+      pokemonData: null,
+      row: null
     }
   },
   beforeMount() {
@@ -164,19 +132,25 @@ export default {
     window.removeEventListener('keydown', this.handleKeydown)
   },
   created: async function () {
-    await this.loadSheet()
-    this.setCells()
-    this.fetchPokeAPIInfo()
+    const boxStore = useBoxStore()
+    const rows = boxStore.currentBox
+    // Ensure that the Store has Box Information
+    if (rows == null || rows.length == 0) {
+      this.empty = true
+      return
+    }
+
+    this.row = rows[parseInt(this.index)]
+    this.pokemonData = this.fetchPokeAPIInfo()
     this.loaded = true
-    window.onhashchange = this.loadSheet
+
     this.$watch(
       () => this.$route.params,
       async (toParams, previousParams) => {
         this.loaded = false
-        this.rows = null
+        this.row = null
         this.pokemonData = null
-        await this.loadSheet()
-        this.setCells()
+        this.row = rows[parseInt(this.index)]
         this.fetchPokeAPIInfo()
         this.loaded = true
       }
@@ -186,8 +160,24 @@ export default {
     backgroundImage() {
       return PokemonDetail
     },
-    row() {
-      return this.rows[1]
+    index() {
+      return this.$route.params.index
+    },
+    rows() {
+      const boxStore = useBoxStore()
+      return boxStore.currentBox
+    },
+    prevRow() {
+      if (this.index > 0) {
+        return this.rows[parseInt(this.index) - 1]
+      }
+      return null
+    },
+    nextRow() {
+      if (this.index < this.rows.length - 1) {
+        return this.rows[parseInt(this.index) + 1]
+      }
+      return null
     },
     rawName() {
       return this.row.get('name')
@@ -227,13 +217,13 @@ export default {
       return this.isGigantamax ? Images.gigantamaxImg() : ''
     },
     prevPkmnName() {
-      return Utilities.sanitizeNameHomeOnly(this.rows[0].get('name'))
+      return Utilities.sanitizeNameHomeOnly(this.prevRow?.get('name'))
     },
     prevPkmnImg() {
       return Sprites.fetchHomeSprite(this.prevPkmnName)
     },
     nextPkmnName() {
-      return Utilities.sanitizeNameHomeOnly(this.rows[2]?.get('name'))
+      return Utilities.sanitizeNameHomeOnly(this.nextRow?.get('name'))
     },
     nextPkmnImg() {
       return Sprites.fetchHomeSprite(this.nextPkmnName)
@@ -243,58 +233,11 @@ export default {
     }
   },
   methods: {
-    loadSheet: async function () {
-      this.rowNumber = this.$route.params.rowNum
-
-      const sheetName = this.$route.params.sheetName.replaceAll('-', ' ')
-      const sheetID = import.meta.env.VITE_SHEETID
-      const doc = new GoogleSpreadsheet(sheetID, { apiKey: import.meta.env.VITE_APIKEY })
-
-      // Load Sheets from Google
-      await doc.loadInfo()
-      const sheet = doc.sheetsByTitle[sheetName]
-
-      // Load just this Row
-      const rows = await sheet.getRows({
-        offset: this.rowNumber - 3,
-        limit: 3
-      })
-
-      // Load this Row's cells into the Sheet's Cache - this has more detailed data than the Row itself
-      await sheet.loadCells([
-        this.config.eventURLColumn + this.rowNumber,
-        this.config.tradeURLColumn1 +
-          this.rowNumber +
-          ':' +
-          this.config.tradeURLColumn4 +
-          this.rowNumber
-      ])
-
-      // Store the Sheet and Rows
-      this.spreadsheet = sheet
-      this.rows = rows
-    },
-    setCells: function () {
-      this.eventCell = this.spreadsheet.getCellByA1(this.config.eventURLColumn + this.rowNumber)
-      this.tradeOrigCell = this.spreadsheet.getCellByA1(
-        this.config.tradeURLColumn1 + this.rowNumber
-      )
-      this.tradeHop1Cell = this.spreadsheet.getCellByA1(
-        this.config.tradeURLColumn2 + this.rowNumber
-      )
-      this.tradeHop2Cell = this.spreadsheet.getCellByA1(
-        this.config.tradeURLColumn3 + this.rowNumber
-      )
-      this.tradeHop3Cell = this.spreadsheet.getCellByA1(
-        this.config.tradeURLColumn4 + this.rowNumber
-      )
-    },
-    routeToInfoView: function (rowNumber) {
+    routeToInfoView: function (index) {
       this.$router.push({
-        name: 'pokemon',
+        name: 'boxPokemon',
         params: {
-          sheetName: this.$route.params.sheetName,
-          rowNum: rowNumber
+          index: index
         }
       })
     },
@@ -339,12 +282,12 @@ export default {
       switch (event.keyCode) {
         case 37:
           if (this.prevPkmnName != '') {
-            this.routeToInfoView(parseInt(this.rowNumber) - 1)
+            this.routeToInfoView(parseInt(this.index) - 1)
           }
           break
         case 39:
           if (this.nextPkmnName != '') {
-            this.routeToInfoView(parseInt(this.rowNumber) + 1)
+            this.routeToInfoView(parseInt(this.index) + 1)
           }
           break
       }

@@ -12,6 +12,9 @@
             >{{ sheet }}
           </RouterLink>
         </div>
+        <div class="navbar-end">
+          <RouterLink class="navbar-item" to="/boxes">Boxes</RouterLink>
+        </div>
       </div>
     </nav>
   </div>
