@@ -29,9 +29,7 @@
         <img :src="nextPkmnImg" />
       </div>
       <div class="eventContainer">
-        <h3 class="eventData">
-          Event: {{ this.row.get('event') + ' ' + this.trimmedName() }}
-        </h3>
+        <h3 class="eventData">Event: {{ this.row.get('event') + ' ' + this.trimmedName() }}</h3>
       </div>
       <!-- IV Info -->
       <div class="hpContainer">
@@ -64,6 +62,30 @@
           <img class="typeImg" :src="fetchTypeImg(type.type.name)" />
         </div>
       </div>
+      <div class="move1Container">
+        <div class="moveImgContainer">
+          <img class="moveImg" :src="fetchTypeImg(this.move1Type)" />
+        </div>
+        <h5 class="moveTxt">{{ this.move1 }}</h5>
+      </div>
+      <div class="move2Container">
+        <div class="moveImgContainer">
+          <img class="moveImg" :src="fetchTypeImg(this.move2Type)" />
+        </div>
+        <h5 class="moveTxt">{{ this.move2 }}</h5>
+      </div>
+      <div class="move3Container">
+        <div class="moveImgContainer">
+          <img class="moveImg" :src="fetchTypeImg(this.move3Type)" />
+        </div>
+        <h5 class="moveTxt">{{ this.move3 }}</h5>
+      </div>
+      <div class="move4Container">
+        <div class="moveImgContainer">
+          <img class="moveImg" :src="fetchTypeImg(this.move4Type)" />
+        </div>
+        <h5 class="moveTxt">{{ this.move4 }}</h5>
+      </div>
       <div class="spriteContainer" v-if="spriteImg != ''">
         <div class="spriteImg" v-bind:style="{ backgroundImage: 'url(' + spriteImg + ')' }"></div>
       </div>
@@ -92,8 +114,9 @@
       <div class="notesContainer">
         <h3>Disclosure / Notes:</h3>
         <h5>{{ this.row.get('disclosure') }}</h5>
-        <h3 style="display: inline;">Proof:</h3>&nbsp;
-        <h5 style="display: inline;">{{ this.row.get('proof') }}</h5>
+        <h3 style="display: inline">Proof:</h3>
+        &nbsp;
+        <h5 style="display: inline">{{ this.row.get('proof') }}</h5>
       </div>
       <div class="boxContainer" @click="routeToBoxView()">
         <h6>Box Location: {{ this.row.get('box') }}</h6>
@@ -114,6 +137,8 @@ import { Pokedex } from 'pokeapi-js-wrapper'
 
 const P = new Pokedex()
 
+const errString = 'ERROR'
+
 export default {
   name: 'PokeBoxInfo',
   props: ['config'],
@@ -122,6 +147,10 @@ export default {
       loaded: false,
       empty: false,
       pokemonData: null,
+      move1Type: '',
+      move2Type: '',
+      move3Type: '',
+      move4Type: '',
       row: null
     }
   },
@@ -141,7 +170,8 @@ export default {
     }
 
     this.row = rows[parseInt(this.index)]
-    this.pokemonData = this.fetchPokeAPIInfo()
+    this.fetchPokeAPIInfo()
+    this.fetchPokeAPIMoves()
     this.loaded = true
 
     this.$watch(
@@ -150,8 +180,13 @@ export default {
         this.loaded = false
         this.row = null
         this.pokemonData = null
+        this.move1Type = ''
+        this.move2Type = ''
+        this.move3Type = ''
+        this.move4Type = ''
         this.row = rows[parseInt(this.index)]
         this.fetchPokeAPIInfo()
+        this.fetchPokeAPIMoves()
         this.loaded = true
       }
     )
@@ -230,6 +265,30 @@ export default {
     },
     selfObtained() {
       return this.row.get('tradeHistory').startsWith('Self-obtained')
+    },
+    move1() {
+      if (this.move1Type == errString) {
+        return errString
+      }
+      return this.row.get('move1')
+    },
+    move2() {
+      if (this.move2Type == errString) {
+        return errString
+      }
+      return this.row.get('move2')
+    },
+    move3() {
+      if (this.move3Type == errString) {
+        return errString
+      }
+      return this.row.get('move3')
+    },
+    move4() {
+      if (this.move4Type == errString) {
+        return errString
+      }
+      return this.row.get('move4')
     }
   },
   methods: {
@@ -260,6 +319,84 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    fetchPokeAPIMoves: function () {
+      // If Move 1 is blank, assume all are
+      if (this.move1 != null && this.move1 != '' && this.move1 != '-') {
+        const move1 = this.move1.toLowerCase().replaceAll(' ', '-')
+        P.getMoveByName(move1)
+          .then((response) => {
+            return response
+          })
+          .then((data) => {
+            this.move1Type = data.type.name
+          })
+          .catch((error) => {
+            this.move1Type = errString
+            console.log(error)
+          })
+
+        // If Move 2 is blank, assume remaining are
+        if (this.move2 != null && this.move2 != '' && this.move2 != '-') {
+          const move2 = this.move2.toLowerCase().replaceAll(' ', '-')
+          P.getMoveByName(move2)
+            .then((response) => {
+              return response
+            })
+            .then((data) => {
+              this.move2Type = data.type.name
+            })
+            .catch((error) => {
+              this.move2Type = errString
+              console.log(error)
+            })
+
+          if (this.move3 != null && this.move3 != '' && this.move3 != '-') {
+            const move3 = this.move3.toLowerCase().replaceAll(' ', '-')
+            P.getMoveByName(move3)
+              .then((response) => {
+                return response
+              })
+              .then((data) => {
+                this.move3Type = data.type.name
+              })
+              .catch((error) => {
+                this.move3Type = errString
+                console.log(error)
+              })
+
+            if (this.move4 != null && this.move4 != '' && this.move4 != '-') {
+              const move4 = this.move4.toLowerCase().replaceAll(' ', '-')
+              P.getMoveByName(move4)
+                .then((response) => {
+                  return response
+                })
+                .then((data) => {
+                  this.move4Type = data.type.name
+                })
+                .catch((error) => {
+                  this.move4Type = errString
+                  console.log(error)
+                })
+            } else {
+              this.move4Type = ''
+            }
+          } else {
+            this.move3Type = ''
+            this.move4Type = ''
+          }
+        } else {
+          this.move2Type = ''
+          this.move3Type = ''
+          this.move4Type = ''
+        }
+      } else {
+        // Set all types to empty string
+        this.move1Type = ''
+        this.move2Type = ''
+        this.move3Type = ''
+        this.move4Type = ''
+      }
     },
     fetchTypeImg: function (type) {
       return Images.typeImg(type)

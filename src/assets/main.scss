@@ -59,7 +59,6 @@ body {
         }
       }
     }
-    
   }
 
   #main-section {
@@ -226,6 +225,44 @@ body {
         }
       }
 
+      .move1Container {
+        position: absolute;
+        display: flex;
+        align-content: center;
+        align-items: center;
+      }
+      .move2Container {
+        position: absolute;
+        display: flex;
+        align-content: center;
+        align-items: center;
+      }
+      .move3Container {
+        position: absolute;
+        display: flex;
+        align-content: center;
+        align-items: center;
+      }
+      .move4Container {
+        position: absolute;
+        display: flex;
+        align-content: center;
+        align-items: center;
+      }
+
+      .moveImgContainer {
+        display: flex;
+      }
+      .moveImg {
+        width: auto;
+        margin: auto;
+      }
+      .moveTxt {
+        padding-left: 1.5em;
+        text-align: left;
+        vertical-align: middle;
+      }
+
       .spriteContainer {
         position: absolute;
 
@@ -386,7 +423,7 @@ body {
     padding: 0.5rem;
     text-align: center;
     color: var(--text-navbar);
-    font-size: .8em;
+    font-size: 0.8em;
     background-color: var(--navbar-background);
   }
 }
