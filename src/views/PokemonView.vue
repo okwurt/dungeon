@@ -31,6 +31,9 @@
           this.row.get('event') + ' ' + this.trimmedName()
         }}</a>
       </div>
+      <div class="langContainer">
+        <h3>{{ this.row.get('lang') }}</h3>
+      </div>
       <!-- IV Info -->
       <div class="hpContainer">
         <h4>{{ this.row.get('hp') }}</h4>
@@ -109,14 +112,14 @@
       <!-- Detailed Information -->
       <div class="tradeContainer">
         <h3>Trade History:</h3>
-        <h5 v-if="selfObtained">{{ this.row.get('tradeOrigin') }}</h5>
+        <h5 v-if="selfObtained">{{ this.tradeOrigin }}</h5>
         <a
           v-else-if="tradeOrigCell.hyperlink != null"
           class="tradeHistoryData"
           :href="tradeOrigCell.hyperlink"
-          >{{ this.row.get('tradeOrigin') }}</a
+          >{{ this.tradeOrigin }}</a
         >
-        <h5 v-else>{{ this.row.get('tradeOrigin') }}</h5>
+        <h5 v-else>{{ this.tradeOrigin }}</h5>
         <a
           v-if="tradeHop1Cell.hyperlink != null"
           class="tradeHistoryData"
@@ -277,6 +280,13 @@ export default {
     },
     selfObtained() {
       return this.row.get('tradeHistory').startsWith('Self-obtained')
+    },
+    tradeOrigin() {
+      const origin = this.row.get('tradeOrigin')
+      if (origin == null || origin == '') {
+        return this.row.get('tradeHistory')
+      }
+      return origin
     },
     move1() {
       if (this.move1Type == errString) {

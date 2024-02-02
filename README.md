@@ -1,4 +1,4 @@
-# dungeon2
+# dungeon
 
 This is a Vue web app that will read Pokemon data from an existing (populated) Google Sheet and provide a more dynamic view with detailed, shareable, pages. This is intended to be a supplementary display of your Pokemon Collection as well as a possible trade offering tool.
 
@@ -6,7 +6,9 @@ This project assumes you already have a Google Sheet with your Pokemon Informati
 
 ## Spreadsheet Setup
 
-At this time, the app is focused on Event sheets specifically.
+If you have not used the template listed above which this app is based on, it will require your sheet's A row to have column headers of:
+> dex, event, name, isShiny, ball, level, ability, nature, ot, id, hp, spa, atk, spd, def, spe, move1, move2, move3, move4, tradeHistory, disclosure, proof, box, reddit, category, generation, tradeOrigin, tradeHop1, tradeHop2, tradeHop3
+
 
 If you are using the sheet template linked above you will need to:
 - Edit AC1 and type in "disclosure"
@@ -16,17 +18,24 @@ If you are using the sheet template linked above you will need to:
 Differences in my sheet compared to the template are as follows:
 - Added 6 columns after AE (this means that "reddit" column is now AL)
     - AF is for generation for Sprite Images (covered below) and AF1 is "generation"
-          - If you do not add this one, some Sprites may not load correctly
+      
+            If you do not add this one, some Sprites may not load correctly
+
     - AG is for category of Event (referring to generation Event was distributed in) and AG1 is "category"
-          - If you do not add this one, you will not have filtering capabilities
+          
+            If you do not add this one, you will not have filtering capabilities
+
     - AH thru AK are for enhanced trade history expanding column AB into four columns to allow hyperlinks for each step in the trade history. These are AH1 = "tradeOrigin", AI1 = "tradeHop1", AJ1 = "tradeHop2", and AK1 = "tradeHop3"
-          - If you do not add these (only looks for "tradeOrigin" column) it will default to using existing "tradeHistory" column where applicable
+          
+            If you do not add these (only looks for "tradeOrigin" column) it will default to using existing "tradeHistory" column where applicable
 
 ## Application Setup
 
 Create a file .env in base directory, this should have two variables
 - VITE_SHEETID which is your Google Sheet's unique ID
 - VITE_APIKEY which is your API Key to the Google Sheet API obtained through Google Cloud Console
+
+> Ensure that you correctly restrict your Google API Key to your site as it will be exposed via the code.
 
 Edit config.js to put in your sheet names that you want loaded
 

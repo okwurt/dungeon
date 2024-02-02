@@ -31,6 +31,9 @@
       <div class="eventContainer">
         <h3 class="eventData">Event: {{ this.row.get('event') + ' ' + this.trimmedName() }}</h3>
       </div>
+      <div class="langContainer">
+        <h3>{{ this.row.get('lang') }}</h3>
+      </div>
       <!-- IV Info -->
       <div class="hpContainer">
         <h4>{{ this.row.get('hp') }}</h4>
