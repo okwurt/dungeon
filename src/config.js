@@ -2,7 +2,8 @@
 // If your sheet names contain spaces, please replace with hyphens here
 export const SheetNames = [
     "Events",
-    "Events-For-Trade"
+    "Events-For-Trade",
+    "Shiny"
 ]
 
 export const SpriteURLBase = {

@@ -26,10 +26,12 @@
         <img :src="nextPkmnImg" />
       </div>
       <div class="eventContainer">
-        <h3 class="eventData">Event (Bulbapedia Link): &nbsp;</h3>
-        <a class="eventData" :href="eventCell.hyperlink">{{
+        <!-- This Container will hold either the Event info or the "Method" info from the proof column if not an Event -->
+        <h3 v-if="isEvent" class="eventData">Event (Bulbapedia Link): &nbsp;</h3>
+        <a v-if="isEvent" class="eventData" :href="eventCell.hyperlink">{{
           this.row.get('event') + ' ' + this.trimmedName()
         }}</a>
+        <h3 v-else class="eventData">{{ this.row.get('proof') }}</h3>
       </div>
       <div class="langContainer">
         <h3>{{ this.row.get('lang') }}</h3>
@@ -145,9 +147,9 @@
       <div class="notesContainer">
         <h3>Disclosure / Notes:</h3>
         <h5>{{ this.row.get('disclosure') }}</h5>
-        <h3 style="display: inline">Proof:</h3>
+        <h3 v-if="isEvent" style="display: inline">Proof:</h3>
         &nbsp;
-        <h5 style="display: inline">{{ this.row.get('proof') }}</h5>
+        <h5 v-if="isEvent" style="display: inline">{{ this.row.get('proof') }}</h5>
       </div>
       <div class="boxContainer" @click="routeToBoxView()">
         <h6>Box Location: {{ this.row.get('box') }}</h6>
@@ -311,6 +313,9 @@ export default {
         return errString
       }
       return this.row.get('move4')
+    },
+    isEvent() {
+      return this.row.get('event') != null && this.row.get('event') != ""
     }
   },
   methods: {
