@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import SheetView from '../views/SheetView.vue'
 import PokemonView from '../views/PokemonView.vue'
 import BoxView from '../views/BoxView.vue'
+import DetailView from '../views/DetailView.vue'
 import PokeBoxView from '../views/PokeBoxView.vue'
 
 const router = createRouter({
@@ -38,6 +39,12 @@ const router = createRouter({
       path: '/boxes/pokemon/:index',
       name: 'boxPokemon',
       component: PokeBoxView,
+      params: true
+    },
+    { // I'm unsure if I want to try and combine them, this will be a future problem
+      path: '/pokemon/:type/:name/:index',
+      name: 'detail',
+      component: DetailView,
       params: true
     }
   ]
