@@ -12,6 +12,8 @@ export default {
             spriteName = 'sirfetchd';
         } else if (pkmnName === 'Sinistea-Antique') {
             spriteName = 'sinistea';
+        } else if (pkmnName === 'Polteageist-Antique') {
+            spriteName = 'polteageist';
         } else if (pkmnName.startsWith('Tapu')) {
             spriteName = 'tapu' + pkmnName.substring(5);
         } else if (pkmnName === 'Greninja-Ash') {
