@@ -37,12 +37,17 @@
       </tbody>
     </table>
   </div>
+  <div v-else class="loadingDiv">
+    <img class="loadingImg" :src="loadingImage">
+  </div>
 </template>
 
 <script>
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 import Row from '../components/Row.vue'
+
+import Images from '../images.js'
 
 export default {
   name: 'SheetView',
@@ -70,6 +75,11 @@ export default {
       }
     )
   },
+  computed: {
+    loadingImage() {
+      return Images.loadingImg()
+    }
+  },
   methods: {
     loadSheet: async function () {
       this.sheetName = this.$route.params.sheetName.replaceAll('-', ' ')
@@ -81,7 +91,7 @@ export default {
         offset: 3
       })
       this.spreadsheet = sheet
-      this.rows = rows //.slice(0,3)
+      this.rows = rows
       this.loaded = true
     },
     routeToInfoView: function (row) {

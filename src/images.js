@@ -1,3 +1,4 @@
+import Loading from '@/assets/images/mew.gif'
 import StarShiny from '@/assets/images/star-shiny.png'
 import SquareShiny from '@/assets/images/square-shiny.png'
 import Gigantamax from '@/assets/images/gigantamax.png'
@@ -43,6 +44,9 @@ const typeMap = new Map([
 ])
 
 export default {
+    loadingImg: function() {
+        return Loading
+    },
     starShinyImg : function() {
         return StarShiny
     },
