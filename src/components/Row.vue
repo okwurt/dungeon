@@ -32,8 +32,8 @@
       <img v-if="isGigantamax" v-bind:src="gigantamaxImg" />
     </td>
     <td class="verticalcenter">
-      Level <br />
-      {{ row.get('level') }}
+      {{ row.get('lang') }} <br />
+      Lv. {{ row.get('level') }}
     </td>
     <td class="verticalcenter">{{ row.get('nature') }}</td>
     <!-- Last Two Columns have Span 2 -->

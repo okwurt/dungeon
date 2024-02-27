@@ -29,6 +29,25 @@
         }
       }
 
+      #sheet-view {
+        padding: 10px 40px;
+
+        h2 {
+          font-size: 1em;
+        }
+
+        .filter-container {
+          .buttonFilter {
+            padding: 0.5em;
+            font-size: 1em;
+            width: 4em;
+            height: 2em;
+
+            outline-width: 2px;
+          }
+        }
+      }
+
       #detail-view {
         .pokemonView {
           width: 1280px;
@@ -311,11 +330,11 @@
         }
 
         .normalrow {
-          height: 75px;
+          height: 70px;
         }
 
         .spriteCell {
-          width: 150px;
+          width: 140px;
         }
 
         .ballCell {

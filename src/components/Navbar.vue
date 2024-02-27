@@ -1,5 +1,5 @@
 <template>
-  <div v-cloak v-if="sheets" class="container-fluid">
+  <div v-cloak v-if="sheets" >
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-start">

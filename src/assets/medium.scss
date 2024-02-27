@@ -17,7 +17,6 @@
       .navbar {
         .navbar-item {
           font-size: medium;
-          width: 100px;
         }
       }
     }
@@ -27,6 +26,25 @@
         img {
           width: 500px;
           border: 10px solid var(--navbar-background);
+        }
+      }
+
+      #sheet-view {
+        padding: 8px 30px;
+
+        h2 {
+          font-size: .8em;
+        }
+
+        .filter-container {
+          .buttonFilter {
+            padding: 0.3em;
+            font-size: .8em;
+            width: 4em;
+            height: 2em;
+
+            outline-width: 1px;
+          }
         }
       }
 

@@ -347,7 +347,29 @@ body {
     }
 
     #sheet-view {
-      padding: 10px 40px;
+      .filter-container {
+        display: flex;
+        justify-content: space-between;
+        color: var(--navbar-background);
+
+        .p-buttonset {
+          width: 45%;
+          text-align: right;
+        }
+
+        .buttonFilter {
+          margin-left: auto;
+          align-self: flex-end;
+
+          outline-color: var(--highlight-header);
+          outline-style: solid;
+        }
+
+        .activeButton {
+          background-color: var(--highlight-header);
+          color: var(--text-header);
+        }
+      }
     }
 
     table {

@@ -33,6 +33,25 @@
         }
       }
 
+      #sheet-view {
+        padding: 5px 20px;
+
+        h2 {
+          font-size: .6em;
+        }
+
+        .filter-container {
+          .buttonFilter {
+            padding: 0.2em;
+            font-size: .6em;
+            width: 4em;
+            height: 4em;
+
+            outline-width: 1px;
+          }
+        }
+      }
+
       #detail-view {
         .pokemonView {
           background-size: 640px;
